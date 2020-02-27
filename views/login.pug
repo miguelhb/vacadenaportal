@@ -1,0 +1,76 @@
+extends layout
+
+block layout-content
+  div.View.WelcomeView
+    h1.Banner VACADENA
+
+    div.campos
+
+          div.Message.insertar
+            div.Title
+              h1 Insertar movimiento
+            form(action="/insertar", method="post")
+              h3 Animales:
+                input(type="text", name="animales", placeholder="Contenido obligatorio")
+              h3 Identificador lote:
+                input(type="text", name="idLote", placeholder="Opcional")
+              h3 Identificador despiece:
+                input(type="text", name="idDespiece", placeholder="Opcional")
+              h3 Identificador negocio:
+                input(type="text", name="idNegocio", placeholder="Contenido obligatorio")
+              h3 Tipo de negocio:
+                input(type="text", name="tipNegocio", placeholder="Contenido obligatorio")
+              h3 Tipo de movimiento:
+                input(type="text", name="tipMovimiento", placeholder="Contenido obligatorio")
+              h3 Usuario:
+                input(type="number", name="usuario", placeholder="Contenido obligatorio")
+              input(type="submit", name="Done")
+              if(resultR)
+                div.resultado
+                  table
+                    thead
+                      for obj in ["Animales","ID","identificadorLoteDes","identificadorDespiece","identificadorNegocio","tipoNegocio", "tipoMovimiento", "Usuario","Fecha","FechaInsert","__V"]
+                        th=obj
+                    tbody
+                    for object in resultR
+                      td=object
+
+          div.Message.consultar
+            div.Title
+              h1 Consultar movimiento
+            form(action="/consultar", method="post")
+              h3 Identificador de negocio:
+                input(type="text", name="idNe", placeholder="Contenido obligatorio")
+              h3 Tipo de negocio:
+                input(type="text", name="tipNe", placeholder="Opcional")
+              h3 Identificador de animal:
+                input(type="text", name="idAn", placeholder="Opcional")
+              h3 Identificador lote despiece:
+                input(type="text", name="idLoDe", placeholder="Opcional")
+              h3 Identificador despiece:
+                input(type="text", name="idDe", placeholder="Opcional")
+              h3 # max resultados:
+                input(type="number", name="maxRes", placeholder="Opcional")
+              input(type="submit", name="Done")
+              if(resultC)
+                div.resultado
+                  table
+                    thead
+                    for obj in ["BlockchainData", "Animales","ID","identificadorLoteDes","identificadorDespiece","identificadorNegocio","tipoNegocio", "tipoMovimiento", "Usuario","Fecha","FechaInsert","__V","ValidBlockchainData"]
+                      th=obj
+                    tbody
+                      for object in resultC
+                        tr
+                          for subobject in object
+                            td=JSON.stringify(subobject)
+
+
+    div.NavButtons
+      if isAuthenticated
+        a(href="/")
+          div.NavButton Volver
+          h3 #{JSON.stringify(resultC)}
+
+      else
+        a(href="/")
+          div.NavButton Volver

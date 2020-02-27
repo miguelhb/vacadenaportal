@@ -1,0 +1,56 @@
+extends layout
+
+block layout-content
+  div.View.WelcomeView
+    h1.Banner VACADENA
+
+    div.campos
+      if !isAuthenticated
+        div.Message.login
+          div.Title
+            h1 Identificacion
+            span.Details (Necesario para operar)
+              form(action="/login", method="post")
+                h3 Usuario:
+                  input(type="text", name="usuario")
+                h3 Contraseña:
+                  input(type="password", name="contraseña")
+                input(type="submit", name="Done")
+
+      else
+          div.Message.insertar
+            div.Title
+              h1 Insertar movimiento
+            form(action="/insertar", method="post")
+            h3 Animales:
+              input(type="text", name="animales")
+            h3 Identificador lote:
+              input(type="text", name="idLote")
+            h3 Identificador despiece:
+              input(type="text", name="idDespiece")
+            h3 Identificador negocio:
+              input(type="text", name="idNegocio")
+            h3 Tipo de negocio:
+              input(type="text", name="tipNegocio")
+            h3 Tipo de movimiento:
+              input(type="text", name="tipMovimiento")
+            h3 Usuario:
+              input(type="text", name="usuario")
+            h3 Fecha:
+              input(type="text", name="fecha")
+            input(type="submit", name="Done")
+            if isInsercion
+              div.resultadp
+                  h3 #{result}
+
+          div.Message.consultar
+            div.Title
+              h1 Consultar movimiento
+            form(action="/consultar", method="post")
+            h3 Identificador de negocio:
+              input(type="text", name="first")
+            h3 Tipo de negocio:
+              input(type="text", name="second")
+            input(type="submit", name="Done")
+
+    div.NavButtons
